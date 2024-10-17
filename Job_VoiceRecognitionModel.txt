@@ -1,0 +1,40 @@
+{
+  "job_id": 729048336485511,
+  "creator_user_name": "lilit@thedatafactor.com",
+  "run_as_user_name": "lilit@thedatafactor.com",
+  "run_as_owner": true,
+  "settings": {
+    "name": "VoiceRecognitionModel",
+    "email_notifications": {
+      "no_alert_for_skipped_runs": false
+    },
+    "webhook_notifications": {},
+    "timeout_seconds": 0,
+    "trigger": {
+      "pause_status": "UNPAUSED",
+      "file_arrival": {
+        "url": "/Volumes/poc_data/voice/hackathon_2024_voice/"
+      }
+    },
+    "max_concurrent_runs": 1,
+    "tasks": [
+      {
+        "task_key": "Run_VoiceRecognitionModel",
+        "run_if": "ALL_SUCCESS",
+        "notebook_task": {
+          "notebook_path": "/Workspace/Shared/Hackathon 2024/Submission/VoiceRecognitionModel",
+          "source": "WORKSPACE"
+        },
+        "existing_cluster_id": "1007-224337-3846vun9",
+        "timeout_seconds": 0,
+        "email_notifications": {},
+        "webhook_notifications": {}
+      }
+    ],
+    "format": "MULTI_TASK",
+    "queue": {
+      "enabled": true
+    }
+  },
+  "created_time": 1729125690642
+}
