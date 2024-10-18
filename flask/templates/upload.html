@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Data GIN</title>
+    <style>
+        body {
+            font-family: 'Bodoni MT', serif;
+        }
+        header {
+            font-family: 'Black Jack', cursive;
+            background-color: none;
+            padding: 10px;
+            color:rgb(27,49,57);
+        }
+        .container {
+            display: flex;
+            align-items: center;
+            color:rgb(27,49,57);
+        }
+        #logo {
+            width: 10%;
+            height: 5%;
+            margin-right: 50px;
+        }
+        h2 {
+            color:rgb(27,49,57);
+            font-size: 1.5em;
+            text-align: center;
+        }
+        h1 {
+            font-size: 1.9em;
+            text-align: left;
+            padding-top: 50px;
+            padding-left: 10px;
+            margin-left: -60px;
+        }
+        h3 {
+            color:rgb(27,49,57);
+            font-size: 1.1em;
+            text-align: center;
+        }
+        p {
+            color:rgb(27,49,57);
+            font-size: 1.8em;
+            text-align: center;
+            padding-top: 3%;
+        }
+        #x, #y {
+            font-family: 'Bodoni MT', serif;
+            color: rgb(27,49,57);
+            border: 3px solid rgb(255,54,33);
+            cursor: pointer;
+            font-weight: bold;            
+            font-size: 1.5em;
+            height: auto;
+            width: auto;
+            background-color: rgb(238,237,233);
+            display: block;
+            margin : 10px auto;
+            border-radius: 1em;
+            padding: 20px;
+        }
+        #x:hover {
+            font-family: 'Bodoni MT', serif;
+            color:rgb(27,49,57);
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 2em;
+            height: auto;
+            width: auto;
+            background-color: rgb(238,237,233);            
+            display: block;
+            margin : 0 auto;
+        }
+        #box {
+            display: block;
+            margin: 0 auto;
+            height: 200px;
+            width: auto;
+            border-radius: 1em;
+            font-family: fantasy;
+            font-size: 44px;
+            color: rgb(27,49,57);
+            padding: 40px;
+	    }
+    </style>    
+<body>
+
+    <header>
+        <div class="container">
+            <img src="static/images/data_factor_logo.jpg" alt="Logo" id="logo">
+            <h1 style="color: rgb(27,49,57)">Team</h1>
+        </div>
+    </header>
+
+  <h2>Please submit your dataset below.<br><br>
+    After you upload it, I will do my best to answer your questions about it.</h2>
+
+<form method="POST" enctype="multipart/form-data" action="/display">
+  <input type="file" name="file" id="x">
+  <input type="submit" value="Upload" id="y">
+</form>
+
+<form method="POST" action="/home">
+    <button type="submit" name="home" id="x">Home</button>
+</form>
+
+<footer>
+<p>&copy; The Data Factor Team. 2024 Generative AI World Cup</p>
+</footer>
+
+</body>
+</html>
