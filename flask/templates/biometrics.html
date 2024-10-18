@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Data GIN</title>
+    <style>
+        body {
+            font-family: 'Bodoni MT', serif;
+        }
+        header {
+            font-family: 'Black Jack', cursive;
+            background-color: none;
+            padding: 10px;
+            color:rgb(27,49,57);
+        }
+        .container {
+            display: flex;
+            align-items: center;
+            color:rgb(27,49,57);
+        }
+        #logo {
+            width: 10%;
+            height: 5%;
+            margin-right: 50px;
+        }
+        h1 {
+            font-size: 1.9em;
+            text-align: left;
+            padding-left: 10px;
+            margin-left: -60px;
+        }
+        h2 {
+            color:rgb(27,49,57);
+            font-size: 1.8em;
+            text-align: center;
+        }
+        p {
+            color:rgb(27,49,57);
+            font-size: 1.7em;
+            text-align: center;
+        }    
+        #x {
+            font-family: 'Bodoni MT', serif;
+            color: rgb(27,49,57);
+            border: 3px solid rgb(255,54,33);
+            cursor: pointer;
+            font-weight: bold;            
+            font-size: 1.5em;
+            text-align: center;
+            height: auto;
+            width: auto;
+            background-color: rgb(238,237,233);
+            display: block;
+            margin : 50px auto;
+            border-radius: 1em;
+            padding: 15px;
+        }
+        #x:hover {
+            font-family: 'Bodoni MT', serif;
+            color:rgb(27,49,57);
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 2em;
+            text-align: center;
+            height: auto;
+            width: auto;       
+            display: block;
+            margin : 0 auto;
+        }   
+        #myForm, #displayName {
+            font-family: 'Bodoni MT', serif;
+            color: rgb(27,49,57);
+            cursor: pointer;
+            /* font-weight: bold;             */
+            font-size: 1.5em;
+            text-align: center;
+            height: auto;
+            width: auto;
+            display: block;
+            margin : 50px auto;
+            border-radius: 1em;
+            padding: 20px;
+            margin-top: 1%;
+        }
+        #recording-message {
+        color: rgb(27,49,57);
+        font-weight: bold;
+    }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <img src="static/images/data_factor_logo.jpg" alt="Logo" id="logo">
+            <h1 style="color: rgb(27,49,57)">Team</h1>
+        </div>
+    </header>
+
+<h2>Let's start by getting to know you.</h2>
+<p>Please record a sample of your voice.<br>We will train our model to recognize your voice and give you access to data.</p>
+
+    <button id="x" onclick="startRecording()">Start Recording</button>
+    <button id="x" onclick="stopRecording()" disabled>Stop Recording</button>
+    <form id="audioForm" method="POST" action="/upload_voice_sample" enctype="multipart/form-data" input type="file" >
+    </form>
+<script>
+        let mediaRecorder;
+        let audioChunks = [];
+
+        async function startRecording() {
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            mediaRecorder = new MediaRecorder(stream);
+
+            mediaRecorder.ondataavailable = event => {
+                audioChunks.push(event.data);
+            };
+
+            mediaRecorder.onstop = () => {
+                const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+                const formData = new FormData(document.getElementById('audioForm'));
+                formData.append('audio_data', audioBlob);
+
+                fetch('/upload_voice_sample', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => console.log(data.message))
+                .catch(error => console.error('Error:', error));
+            };
+
+            mediaRecorder.start();
+            document.querySelector('[onclick="startRecording()"]').disabled = true;
+            document.querySelector('[onclick="stopRecording()"]').disabled = false;
+        }
+
+        function stopRecording() {
+            mediaRecorder.stop();
+            audioChunks = [];
+            document.querySelector('[onclick="startRecording()"]').disabled = false;
+            document.querySelector('[onclick="stopRecording()"]').disabled = true;
+            document.getElementById("recording-message").textContent = "Your recording was successful!"; 
+        }
+    </script>
+
+<p id="recording-message"></p>
+
+<form method="POST" action="/submit_name" id="myForm">
+    <label for="username">Please enter your name; we will train our voice recognition model to recognize your voice.</label>
+    <input type="text" id="username" name="username" required>
+    <button type="submit">Submit</button>
+</form>
+
+<p>Thank you, <span id="displayName"></span></p>
+
+<script>
+    const form = document.getElementById('myForm');
+    const displayName = document.getElementById('displayName');
+    
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();
+        const username = document.getElementById('username').value;
+        displayName.textContent = username; 
+        paragraph.innerHTML = paragraph.innerHTML.replace("{$username}", username);
+
+        // Send displayName to Flask
+        fetch('/submit_name', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ displayName: displayName.textContent }) 
+        });
+    });
+    </script>
+        
+        <form method="POST" action="/home">
+            <button type="submit" name="home" id="x">Home</button>
+        </form>
+
+<footer>
+<p>&copy; 2024 The Data Factor Team. Generative AI World Cup.</p>
+</footer>
+
+</body>
+</html>
