@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Data GIN</title>
+    <style>
+        body {
+            background-image: url("static/images/eight.png"); /* Replace with your image path */
+            background-repeat: no-repeat; /* Prevent image repetition */
+            background-size: 30%; /* Cover the entire page */
+            background-position: right;
+            font-family: 'Bodoni MT', serif;
+        }
+        header {
+            font-family: 'Black Jack', cursive;
+            background-color: none;
+            padding: 10px;
+            color:rgb(27,49,57);
+        }
+        .container {
+            display: flex;
+            align-items: center;
+            color:rgb(27,49,57);
+        }
+        #logo {
+            width: 10%;
+            height: 5%;
+            margin-right: 50px;
+        }
+        h2 {
+            color:rgb(27,49,57);
+            font-size: 2em;
+            text-align: center;
+            padding-top: 1%;
+        }
+        h1 {
+            font-size: 1.9em;
+            text-align: left;
+            padding-top: 34px;
+            padding-left: 10px;
+            margin-left: -60px;
+        }
+        p {
+            color:rgb(27,49,57);
+            font-size: 1.8em;
+            text-align: center;
+            padding-top: 1%;
+        }
+        #x {
+            font-family: 'Bodoni MT', serif;
+            color: rgb(27,49,57);
+            border: 3px solid rgb(255,54,33);
+            cursor: pointer;
+            font-weight: bold;            
+            font-size: 1.5em;
+            height: auto;
+            width: auto;
+            background-color: rgb(238,237,233);
+            margin : 50px auto;
+            border-radius: 1em;
+            padding: 20px;
+            top: -5;
+            right: 10;
+        }
+        #x:hover {
+            font-family: 'Bodoni MT', serif;
+            color:rgb(27,49,57);
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 2em;
+            height: auto;
+            width: auto;
+            background-color: rgb(238,237,233);            
+            display: flex;
+            margin : 0 auto;
+        }
+        #box {
+            display: block;
+            margin: 0 auto;
+            height: 200px;
+            width: auto;
+            border-radius: 1em;
+            font-family: fantasy;
+            font-size: 44px;
+            color: rgb(27,49,57);
+            padding: 40px;
+	    }
+        </style>
+</head>
+
+<body>
+<header>
+    <div class="container">
+        <img src="static/images/data_factor_logo.jpg" alt="Logo" id="logo">
+        <h1 style="color: rgb(27,49,57)">Team</h1>
+    </div>
+</header>
+
+<h2>Hi! I am Data GIN, your personal voice data assistant.<br><br>You can interact with me via voice and ask questions about your dataset from Databricks environment.</h2>
+
+<form method="POST" action="/submit_name">
+    <button type="submit" name="submit_name" id="x" style="display: flex; flex-direction: column">Record your voice to use voice biometrics for restricted data access</button>
+</form>
+
+<form method="POST" action="/display_db">
+    <button type="submit" name="display_db" id="x" style="display: flex; flex-direction: column">Click here to ask questions about your Databricks dataset</button>
+</form>
+
+<form method="POST" action="/upload">
+    <button type="submit" action= "/upload" name="upload" id="x" style="display: flex; flex-direction: column">Upload your dataset and ask questions about it</button>
+</form>
+
+<form method="POST" action="/chat">
+    <button type="submit" name="chat" id="x" style="display: flex; flex-direction: column">Just chat with AI</button>
+</form>
+
+<footer>
+<p>&copy; The Data Factor Team. 2024 Generative AI World Cup</p>
+</footer>
+
+</body>
+</html>
